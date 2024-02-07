@@ -51,7 +51,7 @@ bool ConnectionHandler::getBytes(char bytes[], unsigned int bytesToRead)
 	}
 	catch (std::exception &e)
 	{
-		std::cerr << "recv failed (Error:liman" << e.what() << ')' << std::endl;
+		std::cerr << "recv failed (Error:" << e.what() << ')' << std::endl;
 		return false;
 	}
 	return true;
