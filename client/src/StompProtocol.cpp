@@ -132,7 +132,7 @@ split[index]=line;
           for(vector<Event>::iterator it = eVector.begin();it != eVector.end(); ++it)
          {
             transFrame=sendFrame(myUserName,curr.team_a_name,curr.team_b_name,*it);
-              ans=ans+transFrame+"208786632";
+              ans=ans+transFrame+"##";
          }
         }
    }
