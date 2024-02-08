@@ -18,15 +18,15 @@ class socketThread
 private:
 	ConnectionHandler &ch;
 	StompProtocol &p;
-	bool preLogout;
+	bool getReceipt_And_Logout;
 	mutex &mutex_;
 
 public:
-	socketThread(ConnectionHandler &ConnectionHandler, StompProtocol &protocol,mutex &mutex) : ch(ConnectionHandler), p(protocol), preLogout(true),mutex_(mutex){}
+	socketThread(ConnectionHandler &ConnectionHandler, StompProtocol &protocol,mutex &mutex) : ch(ConnectionHandler), p(protocol), getReceipt_And_Logout(false),mutex_(mutex){}
 
-	void set()
+	void gotDisconnect()
 	{
-		preLogout = false;
+		getReceipt_And_Logout = true;
 	}
 	void taskSocketThread()
 	{
@@ -40,7 +40,7 @@ public:
 				string check = p.handleAnswer(ans);
 				int index = check.find("\n");
 				check = check.substr(0, index);
-				if (!preLogout)
+				if (getReceipt_And_Logout)
 				{
 					if (check == "RECEIPT")
 					{
