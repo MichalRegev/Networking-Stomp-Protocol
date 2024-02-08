@@ -32,8 +32,7 @@ int main(int argc, char *argv[])
 			if (line.size() == 0)
 			{
 				cin.getline(buf, bufsize);
-				string line1(buf);
-				line = line1;
+				line=buf;
 			}
 			command = line;
 			if (line.substr(0, 5) == "login")
