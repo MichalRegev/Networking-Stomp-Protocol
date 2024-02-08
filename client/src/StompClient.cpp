@@ -79,7 +79,8 @@ int main(int argc, char *argv[])
 					size_t pos = 0;
 					vector<string> frames;
 					string curr_frame = "";
-					while ((pos = frame.find("208786632")) != std::string::npos)
+					//## Separator between frames
+					while ((pos = frame.find("##")) != std::string::npos) 
 					{
 						curr_frame = frame.substr(0, pos);
 						int ind = curr_frame.find("\n");
