@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 						if (frame.substr(0, 10) == "DISCONNECT")
 						{
 							logout = true;
-							task2.set();
+							task2.gotDisconnect();
 						}
 					}
 					while (!frames.empty())
