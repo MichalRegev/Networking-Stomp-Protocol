@@ -6,6 +6,33 @@ using namespace std;
 #include "../src/socketThread.cpp"
 #include <boost/lexical_cast/lexical_cast_old.hpp>
 
+int processFrames(ConnectionHandler& connectionHandler, StompProtocol& protocol, mutex& mutex_, vector<string>& frames){
+	while (!frames.empty()){
+		string frame = frames.front();
+		frames.erase(frames.begin());
+		if (connectionHandler.isOpen()){
+			lock_guard<mutex> lock(mutex_);
+			if (connectionHandler.isOpen()){
+				line = "";
+				if (!connectionHandler.sendLine(frame)){
+					std::cout << "Disconnected. Exiting...\n"
+								<< std::endl;
+					break;
+				}
+			}
+			else{
+				return true;
+			}
+		}
+		else{
+			return true;
+		}
+	}
+	return false;
+}
+
+
+
 int main(int argc, char *argv[])
 {
 	string line = "";
@@ -91,35 +118,7 @@ int main(int argc, char *argv[])
 							task2.gotDisconnect();
 						}
 					}
-					while (!frames.empty())
-					{
-						string frame = frames.front();
-						frames.erase(frames.begin());
-						if (connectionHandler.isOpen())
-						{
-							lock_guard<mutex> lock(mutex_);
-							if (connectionHandler.isOpen())
-							{
-								line = "";
-								if (!connectionHandler.sendLine(frame))
-								{
-									std::cout << "Disconnected. Exiting...\n"
-											  << std::endl;
-									break;
-								}
-							}
-							else
-							{
-								logout = true;
-								break;
-							}
-						}
-						else
-						{
-							logout = true;
-							break;
-						}
-					}
+					logout=processFrames(connectionHandler, protocol, mutex_, frames);	
 				}
 			}
 		}
