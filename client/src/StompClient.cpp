@@ -11,12 +11,6 @@ int main(int argc, char *argv[])
 	string line = "";
 	while (1)
 	{
-		// if (argc < 3)
-		// {
-		// 	cerr << "Usage: " << argv[0] << " host port" << endl
-		// 		 << endl;
-		// 	return -1;
-		// }
 		string command = "";
 		bool login = false;
 		string host;
