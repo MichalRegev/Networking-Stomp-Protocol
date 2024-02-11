@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
 							task2.gotDisconnect();
 						}
 					}
-					logout=processFrames(connectionHandler, protocol, mutex_, frames);	
+					logout= processFrames(connectionHandler, protocol, mutex_, frames) || logout;	
 				}
 			}
 		}
